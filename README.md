@@ -1,8 +1,8 @@
 # CSC 207: The Sounds of Sorting
 
-Author: _(TODO: insert your name here!)_
+Author: Linh Vu
 
 ## Resources
 
-*   _(TODO: list your resources here!)_
-*   ...
+- Sorts lab from class done with Trenton and Rex
+- ...
