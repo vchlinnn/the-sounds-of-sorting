@@ -135,11 +135,18 @@ public class ControlPanel extends JPanel {
                 }
                 isSorting = true;
                 
-                // TODO: fill me in!
                 // 1. Create the sorting events list
-                // 2. Add in the compare events to the end of the list
                 List<SortEvent<Integer>> events = new java.util.LinkedList<>();
-                
+                // 1.1 Clone the current note array
+                Integer[] copy = notes.getNotes().clone();
+
+                // 1.2 Generate events using the selected sort
+                // Get the selected item from the drop down
+                String selectedSort = (String) sorts.getSelectedItem();
+                events.addAll(generateEvents(selectedSort, copy));
+
+                // 2. Add in the compare events to the end of the list — already included in generateEvents()
+
                 // NOTE: The Timer class repetitively invokes a method at a
                 //       fixed interval.  Here we are specifying that method
                 //       by creating an _anonymous subclass_ of the TimeTask
@@ -153,10 +160,18 @@ public class ControlPanel extends JPanel {
                     public void run() {
                         if (index < events.size()) {
                             SortEvent<Integer> e = events.get(index++);
-                            // TODO: fill me in!
                             // 1. Apply the next sort event.
+                            e.apply(notes.getNotes());
                             // 3. Play the corresponding notes denoted by the
                             //    affected indices logged in the event.
+                            notes.clearAllHighlighted();
+                            List<Integer> affectedIndices = e.getAffectedIndices();
+                            for (int i = 0; i < affectedIndices.size(); i++) {
+                                int index = affectedIndices.get(i);
+                                notes.highlightNote(index);
+                                scale.playNote(index, e.isEmphasized());
+                            }
+                            
                             // 4. Highlight those affected indices.
                             panel.repaint();
                         } else {

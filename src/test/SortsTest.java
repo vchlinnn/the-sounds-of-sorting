@@ -9,10 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import java.util.function.Consumer;
 import org.junit.jupiter.api.Test;
 
-/**
- *
- * @author chucl
- */
 public class SortsTest {
     /**
      * @param <T> the carrier type of the array
@@ -29,7 +25,7 @@ public class SortsTest {
     }
 
     /**
-     * Generates a diverse set of test cases to check sorting algorithms.
+     * Generates a set of test cases to check sorting algorithms.
      */
     public static Integer[][] testCases() {
         return new Integer[][] {
@@ -41,39 +37,56 @@ public class SortsTest {
         };
     }
 
-    /**
-     * Runs a sorting function on all test cases and checks if the output is sorted.
+     /**
+     * A method that takes a sorting function and tests both:
+     * - The algorithm correctly sorts the array.
+     * - The recorded events also sort the array correctly when replayed.
      */
-    public void testSort(Consumer<Integer[]> func) {
+    public void testSortWithEvents(String sortName, SortingFunction<Integer> sorter) {
+        // for each loop
         for (Integer[] testCase : testCases()) {
-            Integer[] arr = testCase.clone(); // Clone to prevent modifying original
-            func.accept(arr);
-            assertTrue(sorted(arr), "Array not sorted correctly: " + java.util.Arrays.toString(arr));
+            Integer[] original = testCase.clone();
+            Integer[] sortedByAlgorithm = testCase.clone();
+
+            // Run sorting algorithm and get the event log
+            List<SortEvent<Integer>> events = sorter.sort(sortedByAlgorithm);
+            assertTrue(sorted(sortedByAlgorithm), "failed sort " + sortName + " failed array " + Arrays.toString(testCase));
+
+            // Replay the events on a copy of the original
+            Integer[] replayed = original.clone();
+            Sorts.eventSort(replayed, events);
+            assertArrayEquals(sortedByAlgorithm, replayed,
+            "failed sort " + sortName +  " failed array " + Arrays.toString(testCase));
         }
+    }
+
+    // Define a functional interface to support passing sort functions that return List<SortEvent<T>>
+    public interface SortingFunction<T> {
+        List<SortEvent<T>> sort(T[] array);
     }
 
     @Test
     public void testBubbleSort() {
-        testSort(Sorts::bubbleSort);
+        testSortWithEvents("BubbleSort", Sorts::bubbleSort);
     }
 
     @Test
     public void testInsertionSort() {
-        testSort(Sorts::insertionSort);
+        testSortWithEvents("InsertionSort", Sorts::insertionSort);
     }
 
     @Test
     public void testSelectionSort() {
-        testSort(Sorts::selectionSort);
+        testSortWithEvents("SelectionSort", Sorts::selectionSort);
     }
 
     @Test
     public void testMergeSort() {
-        testSort(Sorts::mergeSort);
+        testSortWithEvents("MergeSort", Sorts::mergeSort);
     }
 
     @Test
     public void testQuickSort() {
-        testSort(Sorts::quickSort);
+        testSortWithEvents("MergeSort", Sorts::mergeSort);
     }
 }

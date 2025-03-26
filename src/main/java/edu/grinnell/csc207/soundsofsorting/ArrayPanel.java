@@ -24,6 +24,33 @@ public class ArrayPanel extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
-        // TODO: fill me in!
+        // Call the paintComponent method of the superclass JPanel to clear the panel
+        super.paintComponent(g); 
+
+        // Get current note indices
+        Integer[] indices = notes.getNotes(); 
+        int width = getWidth();
+        int height = getHeight();
+        int barWidth = width / indices.length;
+
+        for (int i = 0; i < indices.length; i++) {
+            int value = indices[i];
+            
+            // Height of the bar is proportional to value
+            int barHeight = (int)(((double) value / (indices.length - 1)) * height);
+            int x = i * barWidth;
+            // Draw from the bottom up
+            int y = height - barHeight; 
+
+            // Set bar color to red if highlighted, blue if not
+            if (notes.isHighlighted(i)) {
+                g.setColor(java.awt.Color.RED);
+            } else {
+                g.setColor(java.awt.Color.BLUE);
+            }
+
+            // Draw the bar
+            g.fillRect(x, y, barWidth, barHeight);
+        }
     }
 }

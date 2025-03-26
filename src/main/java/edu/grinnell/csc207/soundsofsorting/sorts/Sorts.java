@@ -1,7 +1,6 @@
 package edu.grinnell.csc207.soundsofsorting.sorts;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import edu.grinnell.csc207.soundsofsorting.sortevents.SortEvent;
