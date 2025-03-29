@@ -6,7 +6,7 @@ Author: Linh Vu
 
 - IDE: VSCode
 - Java version: 23
-- Sorts lab from class done with Trenton and Rex
+- Sorts lab from class done with Trenton and Rex, Sorts test template from PM
 - Article on using shuffle() method from Collections class: https://www.digitalocean.com/community/tutorials/shuffle-array-java
 - Document on Graphics class: https://docs.oracle.com/javase/8/docs/api/java/awt/Graphics.html
 - Document on super keyword: https://www.geeksforgeeks.org/super-keyword/
