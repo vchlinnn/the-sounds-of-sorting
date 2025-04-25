@@ -37,7 +37,7 @@ public class ArrayPanel extends JPanel {
             int value = indices[i];
             
             // Height of the bar is proportional to value
-            int barHeight = (int)(((double) value / (indices.length - 1)) * height);
+            int barHeight = (int) (((double) value / (indices.length - 1)) * height);
             int x = i * barWidth;
             // Draw from the bottom up
             int y = height - barHeight; 

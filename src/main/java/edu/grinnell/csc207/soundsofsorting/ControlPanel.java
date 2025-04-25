@@ -145,7 +145,7 @@ public class ControlPanel extends JPanel {
                 String selectedSort = (String) sorts.getSelectedItem();
                 events.addAll(generateEvents(selectedSort, copy));
 
-                // 2. Add in the compare events to the end of the list — already included in generateEvents()
+                // 2. Add in the compare events to the end of the list 
 
                 // NOTE: The Timer class repetitively invokes a method at a
                 //       fixed interval.  Here we are specifying that method
