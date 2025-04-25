@@ -15,3 +15,9 @@ Author: Linh Vu
 - Document on clone method: https://www.geeksforgeeks.org/clone-method-in-java-2/
 - Document on JComboBox: https://docs.oracle.com/javase/8/docs/api/javax/swing/JComboBox.html
 - Document on List interface: https://docs.oracle.com/javase/8/docs/api/java/util/List.html
+- Wikipedia on Heapsort: https://en.wikipedia.org/wiki/Heapsort
+
+## Redo logs
+
+- Fix styling issues
+- Add heapsort algorithm
